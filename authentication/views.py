@@ -20,7 +20,7 @@ def login_view(request):
                 request.session.set_expiry(0)
             else:
                 request.session.set_expiry(60 * 60 * 24 * 30)
-            messages.success(request, f'Welcome back, {user.username}!')
+            messages.success(request, f'Welcome , {user.username}!')
             return redirect('dashboard')
         else:
             messages.error(request, 'Invalid username or password.')
