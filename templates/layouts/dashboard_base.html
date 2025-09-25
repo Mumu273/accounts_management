@@ -1,0 +1,43 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Dashboard{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+</head>
+<body>
+
+  <!-- Sidebar -->
+  <div class="sidebar" id="sidebar">
+    <h2>My Dashboard</h2>
+    <a href="#">🏠 Home</a>
+    <a href="#">📊 Reports</a>
+    <a href="#">💰 Earnings</a>
+    <a href="#">📦 Products</a>
+    <a href="#">⚙️ Settings</a>
+    <a href="#">🚪 Logout</a>
+  </div>
+
+  <!-- Overlay -->
+  <div class="overlay" id="overlay" onclick="closeSidebar()"></div>
+
+  <!-- Main content -->
+  <div class="main">
+    <!-- Navbar -->
+    <div class="navbar">
+      <span class="hamburger" onclick="toggleSidebar()">☰</span>
+      <h1>Welcome, User</h1>
+      <input type="text" placeholder="Search...">
+    </div>
+
+    <!-- Page content -->
+    <div class="content">
+      {% block content %}{% endblock %}
+    </div>
+  </div>
+
+  <script src="{% static 'js/dashboard.js' %}"></script>
+</body>
+</html>
