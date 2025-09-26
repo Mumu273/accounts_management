@@ -1,0 +1,125 @@
+/* Container styling */
+.h1 {
+    text-align: center;
+}
+
+.container {
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    margin: 20px auto;
+    max-width: 1000px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    text-align: center; /* Center align content inside container */
+}
+
+/* Table container */
+.table-container {
+    margin-top: 20px;
+    overflow-x: auto;
+}
+
+/* Table styling */
+.table-container table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    text-align: center; /* Center align all table text */
+}
+
+/* Table header */
+.table-container table thead {
+    background-color: #34495e; /* new header color */
+    color: #fff;
+}
+
+.table-container table thead th {
+    padding: 12px 15px;
+    text-align: center; /* Center align header text */
+    font-weight: 600;
+}
+
+/* Table body rows */
+.table-container table tbody tr {
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.table-container table tbody tr:nth-child(even) {
+    background-color: #f3f3f3;
+}
+
+.table-container table tbody td {
+    padding: 10px 15px;
+    text-align: center; /* Center align table cells */
+}
+
+/* Actions buttons */
+.btn-edit,
+.btn-delete {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    text-decoration: none;
+    margin-right: 5px;
+    transition: all 0.3s ease;
+    color: #fff;
+    text-align: center; /* Center align button text */
+}
+
+.btn-edit {
+    background-color: #28a745; /* green */
+}
+
+.btn-edit:hover {
+    background-color: #218838;
+}
+
+.btn-delete {
+    background-color: #dc3545; /* red */
+}
+
+.btn-delete:hover {
+    background-color: #c82333;
+}
+
+/* Empty table message */
+.table-container table tbody tr td[colspan] {
+    text-align: center;
+    font-style: italic;
+    color: #555;
+}
+
+/* Responsive table for smaller screens */
+@media (max-width: 768px) {
+    .container {
+        padding: 15px;
+        margin: 10px;
+    }
+
+    .table-container table thead {
+        display: none; /* Hide headers on small screens */
+    }
+
+    .table-container table tbody td {
+        display: block;
+        width: 100%;
+        text-align: center; /* Center align mobile text */
+        padding-left: 0; /* remove offset */
+        position: relative;
+    }
+
+    .table-container table tbody td::before {
+        content: attr(data-label);
+        position: relative;
+        display: block;
+        width: 100%;
+        font-weight: 600;
+        text-align: center; /* Center align labels */
+        margin-bottom: 5px;
+        color: #34495e;
+    }
+}

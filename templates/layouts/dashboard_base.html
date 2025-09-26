@@ -7,7 +7,7 @@
   <title>{% block title %}Dashboard{% endblock %}</title>
   <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
+    {% block extra_css %}{% endblock %}
 </head>
 <body>
 
@@ -28,7 +28,7 @@
           </div>
           <div class="submenu">
               <a href="#">💵 Earning Category</a>
-              <a href="#">📝 Expense Category</a>
+              <a href="{% url 'expense_category_list' %}">📝 Expense Category</a>
               <a href="#">🔑 Change Password</a>
           </div>
       </div>
@@ -51,6 +51,8 @@
       {% block content %}{% endblock %}
     </div>
   </div>
+
+
 
   <script src="{% static 'js/dashboard.js' %}"></script>
 </body>
