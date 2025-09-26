@@ -13,13 +13,24 @@
 
   <!-- Sidebar -->
   <div class="sidebar" id="sidebar">
-    <h2>My Dashboard</h2>
-    <a href="#">🏠 Home</a>
-    <a href="#">📊 Reports</a>
-    <a href="#">💰 Earnings</a>
-    <a href="#">📦 Products</a>
-    <a href="#">⚙️ Settings</a>
-    <a href="{% url 'logout' %}">🚪 Logout</a>
+      <h2>My Dashboard</h2>
+      <a href="#">🏠 Home</a>
+      <a href="#">📊 Reports</a>
+      <a href="#">💰 Earnings</a>
+      <a href="#">📦 Products</a>
+
+      <!-- Settings with toggle -->
+      <div class="sidebar-item">
+          <div class="settings-toggle">
+            <span>⚙️ Settings</span>
+            <i class="fas fa-chevron-down toggle-icon"></i>
+          </div>
+          <div class="submenu">
+            <a href="#">Earning Category</a>
+            <a href="#">Expense Category</a>
+          </div>
+      </div>
+      <a href="{% url 'logout' %}">🚪 Logout</a>
   </div>
 
   <!-- Overlay -->
