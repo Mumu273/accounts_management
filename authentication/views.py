@@ -31,7 +31,9 @@ def login_view(request):
 
 @login_required
 def dashboard(request):
-    return render(request, 'dashboard/index.html')
+    username = request.user.username
+    context = {'username': username}
+    return render(request, 'dashboard/index.html', context=context)
 
 @login_required
 def logout_view(request):

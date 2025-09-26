@@ -6,6 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{% block title %}Dashboard{% endblock %}</title>
   <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
 </head>
 <body>
 
@@ -17,7 +19,7 @@
     <a href="#">💰 Earnings</a>
     <a href="#">📦 Products</a>
     <a href="#">⚙️ Settings</a>
-    <a href="#">🚪 Logout</a>
+    <a href="{% url 'logout' %}">🚪 Logout</a>
   </div>
 
   <!-- Overlay -->
@@ -26,10 +28,9 @@
   <!-- Main content -->
   <div class="main">
     <!-- Navbar -->
-    <div class="navbar">
-      <span class="hamburger" onclick="toggleSidebar()">☰</span>
-      <h1>Welcome, User</h1>
-      <input type="text" placeholder="Search...">
+    <div class="navbar" id="navbar">
+        <span class="hamburger" onclick="toggleSidebar()">☰</span>
+        <h1 id="welcome-text">Welcome, {{ user.username }}</h1>
     </div>
 
     <!-- Page content -->
