@@ -34,7 +34,7 @@ ALLOWED_HOSTS = ['*']
 
 CUSTOM_APPS = [
     'authentication',
-    'expense',
+    'category',
 ]
 
 INSTALLED_APPS = [

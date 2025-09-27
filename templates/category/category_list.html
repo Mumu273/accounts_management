@@ -2,10 +2,16 @@
 {% load custom_template_tags %}
 {% load static %}
 
-{% block title %}Expense Categories{% endblock %}
+{% block title %}
+    {% if is_expense %}
+        Expense Categories
+    {% else %}
+        Earning Categories
+    {% endif %}
+{% endblock %}
 
 {% block extra_css %}
-<link rel="stylesheet" href="{% static 'css/expense_category_list.css' %}">
+<link rel="stylesheet" href="{% static 'css/category_list.css' %}">
 <link rel="stylesheet" href="{% static 'css/modal.css' %}">
 {% endblock %}
 
@@ -14,37 +20,46 @@
 
 
 <div class="container">
-    <h1>Expense Categories</h1>
+    <h1>{% if is_expense == "True" %}
+        Expense Categories
+    {% else %}
+        Earning Categories
+    {% endif %}</h1>
 
     <div class="table-container">
         <table>
             <thead>
                 <tr>
                     {% for field in form %}
+                    {% if field.name != 'is_expense' %}
                         <th>{{ field.label }}</th>
+                    {% endif %}
                     {% endfor %}
                     <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
-                {% for category in expense_categories %}
+                {% for category in categories %}
                 <tr data-id="{{ category.id }}">
                     {% for field in form %}
+                        {% if field.name != 'is_expense' %}
                         <td data-label="{{ field.label }}">
                             {{ category|get_field_value:field.name|truncatechars:20 }}
                         </td>
+                        {% endif %}
                     {% endfor %}
                     <td data-label="Actions">
-                        <a href="#" class="btn-view" data-url="{% url 'expense_category_view' category.id %}">View</a>
+                        <a href="#" class="btn-view" data-url="{% url 'category_view' category.id %}">View</a>
                         <a href="#" class="btn-edit">Edit</a>
                         <a href="#" class="btn-delete">Delete</a>
                     </td>
                 </tr>
                 {% empty %}
                 <tr>
-                    <td colspan="{{ form|length|add:'2' }}" style="text-align:center;">No categories found.</td>
+                    <td colspan="{{ form|length|add:'1' }}" style="text-align:center;">No categories found.</td>
                 </tr>
                 {% endfor %}
+
             </tbody>
         </table>
     </div>

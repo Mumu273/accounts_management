@@ -1,8 +1,8 @@
 from django import forms
-from .models import ExpenseCategory
+from .models import Category
 from external.exclude_list import exclude_list
 
-class ExpenseCategoryForm(forms.ModelForm):
+class CategoryForm(forms.ModelForm):
     class Meta:
-        model = ExpenseCategory
+        model = Category
         exclude = exclude_list
