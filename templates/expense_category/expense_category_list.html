@@ -6,14 +6,16 @@
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/expense_category_list.css' %}">
+<link rel="stylesheet" href="{% static 'css/expense_category_view.css' %}">
 {% endblock %}
 
 {% block content %}
-<div class="container">
 
+
+
+<div class="container">
     <h1>Expense Categories</h1>
 
-    <!-- Table -->
     <div class="table-container">
         <table>
             <thead>
@@ -26,7 +28,7 @@
             </thead>
             <tbody>
                 {% for category in expense_categories %}
-                <tr>
+                <tr data-id="{{ category.id }}">
                     {% for field in form %}
                         <td data-label="{{ field.label }}">
                             {{ category|get_field_value:field.name|truncatechars:20 }}
@@ -46,6 +48,51 @@
             </tbody>
         </table>
     </div>
-
 </div>
+
+<!-- Modal -->
+<div id="viewModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Expense Category Details</h2>
+        <div id="modal-body"></div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const modal = document.getElementById("viewModal");
+    const modalBody = document.getElementById("modal-body");
+    const closeBtn = modal.querySelector(".close");
+
+    document.querySelectorAll(".btn-view").forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            const row = btn.closest('tr');
+            const categoryId = row.dataset.id;
+            const url = `/expense/category_view/${categoryId}/`;
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    modalBody.innerHTML = '';
+                    for (const key in data) {
+                        modalBody.innerHTML += `
+                            <div class="modal-field">
+                                <strong>${key}:</strong>
+                                <span>${data[key]}</span>
+                            </div>
+                        `;
+                    }
+                    modal.style.display = "block";
+                })
+                .catch(err => console.error('Fetch error:', err));
+        });
+    });
+
+    closeBtn.onclick = () => modal.style.display = "none";
+    window.onclick = event => { if (event.target == modal) modal.style.display = "none"; }
+});
+</script>
+
+
 {% endblock %}

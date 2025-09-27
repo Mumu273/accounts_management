@@ -1,0 +1,65 @@
+/* ---------------- Modal Background ---------------- */
+.modal {
+    display: none; /* hidden by default */
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+/* ---------------- Modal Content ---------------- */
+.modal-content {
+    background-color: #fff;
+    margin: 40% auto; /* vertical centering (slightly lower) */
+    padding: 20px 30px 30px 30px; /* top, right, bottom, left */
+    border-radius: 8px;
+    width: 400px;
+    max-width: 90%;
+    max-height: 80vh; /* max height with scrolling */
+    overflow-y: auto;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    position: relative;
+}
+
+/* ---------------- Close Button ---------------- */
+.close {
+    color: #aaa;
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.close:hover {
+    color: #000;
+}
+
+/* ---------------- Modal Header ---------------- */
+.modal-content h2 {
+    text-align: center;
+    margin: 0; /* remove default margins */
+    padding-bottom: 20px; /* spacing below header */
+    border-bottom: 1px solid #ddd; /* optional separator */
+}
+
+/* ---------------- Modal Fields ---------------- */
+.modal-field {
+    margin-top: 10px; /* spacing between fields */
+    word-wrap: break-word; /* wrap long text */
+    line-height: 1.5; /* improve readability */
+}
+
+/* ---------------- Optional: Responsive Modal ---------------- */
+@media (max-width: 480px) {
+    .modal-content {
+        width: 90%;
+        padding: 15px 20px 20px 20px;
+    }
+}

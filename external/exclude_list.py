@@ -1,1 +1,1 @@
-exclude_list = ['created_at', 'updated_at', 'is_active']
+exclude_list = ['id','created_at', 'updated_at', 'is_active']
