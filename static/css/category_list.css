@@ -133,3 +133,49 @@
         color: #34495e;
     }
 }
+
+/* Add New button container */
+.add-btn-container {
+    text-align: right;
+    margin: 20px 0 15px 0;
+}
+
+/* Add New button styling - same family as View/Edit/Delete */
+.btn-add {
+    display: inline-block;
+    background-color: #007bff; /* same as .btn-view */
+    color: #fff;
+    padding: 8px 18px; /* a bit larger than view/edit/delete */
+    border-radius: 5px; /* same rounded shape */
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+    margin-right: 5px;
+    transition: all 0.3s ease;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+.btn-add:hover {
+    background-color: #0069d9;
+    transform: translateY(-2px);
+}
+
+/* Optional: make it stand out a little more */
+.btn-add:active {
+    transform: translateY(0);
+}
+
+/* Responsive view */
+@media (max-width: 768px) {
+    .add-btn-container {
+        text-align: center;
+    }
+
+    .btn-add {
+        display: block;
+        width: 100%;
+        padding: 12px 0;
+        margin-top: 10px;
+    }
+}

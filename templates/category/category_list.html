@@ -20,11 +20,17 @@
 
 
 <div class="container">
-    <h1>{% if is_expense == "True" %}
-        Expense Categories
-    {% else %}
-        Earning Categories
-    {% endif %}</h1>
+    <h1>
+        {% if is_expense == "True" %}
+            Expense Categories
+        {% else %}
+            Earning Categories
+        {% endif %}
+    </h1>
+
+    <div class="add-btn-container">
+        <a href="#" class="btn-add">Add New</a>
+    </div>
 
     <div class="table-container">
         <table>
@@ -59,11 +65,11 @@
                     <td colspan="{{ form|length|add:'1' }}" style="text-align:center;">No categories found.</td>
                 </tr>
                 {% endfor %}
-
             </tbody>
         </table>
     </div>
 </div>
+
 
 <!-- Modal -->
 {% include 'view_modal.html' %}
