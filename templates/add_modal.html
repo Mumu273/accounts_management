@@ -1,17 +1,19 @@
-<form method="post" action="{% url 'add_new_category' form.initial.is_expense %}">
-  {% csrf_token %}
-  {% for field in form %}
-    {% if field.name != 'is_expense' %}
-      <div class="mb-3">
-        <label class="form-label">{{ field.label }}</label>
-        {{ field }}
-        {% if field.errors %}
-          <div class="text-danger small">{{ field.errors|striptags }}</div>
-        {% endif %}
+<!-- Add New Category Modal -->
+<div class="modal fade" id="addCategoryModal" tabindex="-1" aria-labelledby="addCategoryModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addCategoryModalLabel">Add New Category</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-    {% endif %}
-  {% endfor %}
-  <div class="text-end">
-    <button type="submit" class="btn btn-success">Save</button>
+      <div class="modal-body" id="addCategoryModalBody">
+        <!-- Form will be loaded here dynamically -->
+        <div class="text-center p-3">
+            <div class="spinner-border text-primary" role="status" id="loadingSpinner" style="display:none;">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+      </div>
+    </div>
   </div>
-</form>
+</div>

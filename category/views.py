@@ -44,4 +44,4 @@ def add_new_category(request, is_expense):
             return JsonResponse({"success": False, "form_html": html})
     else:
         form = CategoryForm(initial={"is_expense": is_expense})
-        return render(request, "add_modal.html", {"form": form})
+        return render(request, "add_form.html", {"form": form})
