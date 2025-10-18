@@ -31,3 +31,17 @@ def category_view(request, category_id):
             if field.name not in exclude_list and field.name != 'is_expense':
                 data[field.verbose_name] = getattr(category, field.name)
     return JsonResponse(data)
+
+@login_required
+def add_new_category(request, is_expense):
+    if request.method == "POST":
+        form = CategoryForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return JsonResponse({"success": True})
+        else:
+            html = render(request, "partials/category_form.html", {"form": form}).content.decode("utf-8")
+            return JsonResponse({"success": False, "form_html": html})
+    else:
+        form = CategoryForm(initial={"is_expense": is_expense})
+        return render(request, "add_modal.html", {"form": form})
