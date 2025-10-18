@@ -64,7 +64,8 @@
                             data-url="{% url 'category_edit' category.id %}">
                             Edit
                         </a>
-                        <a href="#" class="btn-delete btn btn-danger btn-sm">Delete</a>
+                        <a href="#" class="btn-delete btn btn-danger btn-sm"
+                            data-url="{% url 'category_delete' category.id %}">Delete</a>
                     </td>
                 </tr>
                 {% empty %}
@@ -78,6 +79,7 @@
     {% include 'add_modal.html' %}
     {% include 'view_modal.html'  %}
     {% include 'edit_modal.html' %}
+    {% include 'delete_modal.html' %}
 </div>
 
 {% endblock %}
@@ -87,4 +89,5 @@
 <script src="{% static 'js/add_modal.js' %}"></script>
 <script src="{% static 'js/view_modal.js' %}"></script>
 <script src="{% static 'js/edit_modal.js' %}"></script>
+<script src="{% static 'js/delete_modal.js' %}"></script>
 {% endblock %}

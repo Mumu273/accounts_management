@@ -1,6 +1,10 @@
+
+
 from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.urls import reverse
+
 from .models import Category
 from .forms import CategoryForm
 from external.exclude_list import exclude_list
@@ -61,3 +65,12 @@ def category_edit(request, category_id):
     else:
         form = CategoryForm(instance=category)
         return render(request, "edit_form.html", {"form": form})
+
+
+@login_required
+def category_delete(request, category_id):
+    url = reverse('category_list')
+    category = Category.objects.filter(id=category_id).first()
+    is_expense = category.is_expense
+    category.delete()
+    return redirect(f"{url}?is_expense={is_expense}")
