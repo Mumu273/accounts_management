@@ -1,12 +1,14 @@
-<form method="POST" action="{% url 'category_edit' form.instance.id %}" id="editCategoryForm">
+<form method="POST" action="{% url 'category_edit' form.instance.id %}" id="editCategoryForm" class="category-form">
     {% csrf_token %}
     {% for field in form %}
-        <div class="mb-3">
-            <label class="form-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
-            {{ field }}
-            {% if field.errors %}
-                <div class="text-danger small">{{ field.errors|striptags }}</div>
-            {% endif %}
-        </div>
+        {% if field.name != 'is_expense' %}
+            <div class="mb-3">
+                <label class="form-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+                {{ field }}
+                {% if field.errors %}
+                    <div class="text-danger small">{{ field.errors|striptags }}</div>
+                {% endif %}
+            </div>
+        {% endif %}
     {% endfor %}
 </form>

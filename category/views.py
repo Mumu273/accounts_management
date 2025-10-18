@@ -49,7 +49,9 @@ def add_new_category(request, is_expense):
 def category_edit(request, category_id):
     category = Category.objects.filter(id=category_id).first()
     if request.method == "POST":
-        form = CategoryForm(request.POST, instance=category)
+        request_data = request.POST.copy()
+        request_data['is_expense'] = category.is_expense
+        form = CategoryForm(request_data, instance=category)
         if form.is_valid():
             form.save()
             return JsonResponse({"success": True})
