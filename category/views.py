@@ -35,7 +35,9 @@ def category_view(request, category_id):
 @login_required
 def add_new_category(request, is_expense):
     if request.method == "POST":
-        form = CategoryForm(request.POST)
+        request_data = request.POST.copy()
+        request_data['is_expense'] = is_expense == "True"
+        form = CategoryForm(request_data)
         if form.is_valid():
             form.save()
             return JsonResponse({"success": True})
