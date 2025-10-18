@@ -1,7 +1,23 @@
-<div id="viewModal" class="modal">
+<div class="modal fade" id="viewCategoryModal" tabindex="-1" aria-labelledby="viewCategoryLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
-        <span class="close">&times;</span>
-        <h2>Expense Category Details</h2>
-        <div id="modal-body"></div>
+      <div class="modal-header">
+        <h5 class="modal-title" id="viewCategoryLabel">Category Details</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <dl class="row">
+          {% for field in form %}
+            {% if field.name != 'is_expense' %}
+                <dt class="col-sm-4">{{ field.label }}</dt>
+                <dd class="col-sm-8">{{ field.value }}</dd>
+            {% endif %}
+          {% endfor %}
+        </dl>
+      </div>
+<!--      <div class="modal-footer">-->
+<!--        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>-->
+<!--      </div>-->
     </div>
+  </div>
 </div>

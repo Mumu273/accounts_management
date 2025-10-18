@@ -1,32 +1,25 @@
-document.addEventListener('DOMContentLoaded', function () {
-    const modal = document.getElementById("viewModal");
-    const modalBody = document.getElementById("modal-body");
-    const closeBtn = modal.querySelector(".close");
+document.addEventListener('DOMContentLoaded', function() {
+    const viewButtons = document.querySelectorAll('.btn-view');
 
-    document.querySelectorAll(".btn-view").forEach(btn => {
+    viewButtons.forEach(btn => {
         btn.addEventListener('click', function(e) {
             e.preventDefault();
-            const row = btn.closest('tr');
-            const categoryId = row.dataset.id;
-            const url = btn.dataset.url;
+            const url = this.dataset.url;
+
             fetch(url)
-                .then(response => response.json())
-                .then(data => {
-                    modalBody.innerHTML = '';
-                    for (const key in data) {
-                        modalBody.innerHTML += `
-                            <div class="modal-field">
-                                <strong>${key}:</strong>
-                                <span>${data[key]}</span>
-                            </div>
-                        `;
-                    }
-                    modal.style.display = "block";
-                })
-                .catch(err => console.error('Fetch error:', err));
+                .then(response => response.text())
+                .then(html => {
+                    // Remove existing modal if present
+                    let existingModal = document.getElementById('viewCategoryModal');
+                    if (existingModal) existingModal.remove();
+
+                    // Insert new modal HTML
+                    document.body.insertAdjacentHTML('beforeend', html);
+
+                    // Show the modal
+                    const modal = new bootstrap.Modal(document.getElementById('viewCategoryModal'));
+                    modal.show();
+                });
         });
     });
-
-    closeBtn.onclick = () => modal.style.display = "none";
-    window.onclick = event => { if (event.target == modal) modal.style.display = "none"; }
 });

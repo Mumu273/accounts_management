@@ -25,12 +25,8 @@ def category_list(request):
 @login_required
 def category_view(request, category_id):
     category = get_object_or_404(Category, id=category_id)
-    data = {}
-    for field in category._meta.get_fields():
-        if field.concrete and not field.many_to_many and not field.auto_created:
-            if field.name not in exclude_list and field.name != 'is_expense':
-                data[field.verbose_name] = getattr(category, field.name)
-    return JsonResponse(data)
+    form = CategoryForm(instance=category)
+    return render(request, 'view_modal.html', {"form":form})
 
 @login_required
 def add_new_category(request, is_expense):
