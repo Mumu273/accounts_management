@@ -1,0 +1,61 @@
+/* ---------- FORM STYLING ---------- */
+.category-form {
+    background-color: #fff;
+    padding: 25px 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+/* Label styling */
+.category-form .form-label {
+    font-size: 0.95rem;
+    margin-bottom: 6px;
+    color: #34495e;
+}
+
+/* Input, select, textarea styling */
+.category-form input,
+.category-form select,
+.category-form textarea {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    background-color: #fafafa;
+}
+
+/* Input focus effects */
+.category-form input:focus,
+.category-form select:focus,
+.category-form textarea:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0,123,255,0.3);
+    outline: none;
+    background-color: #fff;
+}
+
+/* Submit button styling */
+.category-form button[type="submit"] {
+    background-color: #28a745;
+    border: none;
+    font-weight: 600;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.category-form button[type="submit"]:hover {
+    background-color: #218838;
+    transform: translateY(-1px);
+}
+
+/* Add spacing between form fields */
+.category-form .mb-3 {
+    margin-bottom: 20px !important;
+}
+
+/* Error text */
+.category-form .text-danger {
+    font-size: 0.85rem;
+}
