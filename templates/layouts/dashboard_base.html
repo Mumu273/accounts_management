@@ -7,6 +7,7 @@
   <title>{% block title %}Dashboard{% endblock %}</title>
   <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
     <link rel="stylesheet" href="{% static 'css/add_modal.css' %}">
+    <link rel="stylesheet" href="{% static 'css/edit_modal.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     {% block extra_css %}{% endblock %}
 </head>
@@ -52,9 +53,6 @@
       {% block content %}{% endblock %}
     </div>
   </div>
-
-
-
   <script src="{% static 'js/dashboard.js' %}"></script>
 {% block extra_js %}{% endblock %}
 </body>

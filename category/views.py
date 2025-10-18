@@ -43,3 +43,19 @@ def add_new_category(request, is_expense):
     else:
         form = CategoryForm(initial={"is_expense": is_expense})
         return render(request, "add_form.html", {"form": form})
+
+
+@login_required
+def category_edit(request, category_id):
+    category = Category.objects.filter(id=category_id).first()
+    if request.method == "POST":
+        form = CategoryForm(request.POST, instance=category)
+        if form.is_valid():
+            form.save()
+            return JsonResponse({"success": True})
+        else:
+            html = render(request, "partials/category_form.html", {"form": form}).content.decode("utf-8")
+            return JsonResponse({"success": False, "form_html": html})
+    else:
+        form = CategoryForm(instance=category)
+        return render(request, "edit_form.html", {"form": form})
