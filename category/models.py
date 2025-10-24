@@ -6,6 +6,9 @@ class Category(BaseModel):
     description = models.TextField(blank=True, null=True)
     is_expense = models.BooleanField(default=False)
 
+    def __str__(self):
+        return self.category_name if self.category_name else ''
+
     class Meta:
         db_table = 'category'
         ordering = ['-created_at']

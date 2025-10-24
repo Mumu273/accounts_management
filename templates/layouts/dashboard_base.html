@@ -20,7 +20,7 @@
 <!--      <a href="#">📊 Reports</a>-->
       <a href="{% url 'transaction_list' %}?is_expense=False">💰 Earnings</a>
 <!--      <a href="#">📦 Products</a>-->
-      <a href="#">🧾 Expense</a>
+      <a href="{% url 'transaction_list' %}?is_expense=True">🧾 Expense</a>
 
       <!-- Settings with toggle -->
       <div class="sidebar-item">

@@ -1,4 +1,10 @@
-<form method="post" action="{% url 'add_new_category' form.initial.is_expense %}" class="category-form">
+<form method="post"
+      action="{% if is_transaction %}
+                  {% url 'add_new_transaction' form.initial.is_expense %}
+               {% else %}
+                  {% url 'add_new_category' form.initial.is_expense %}
+               {% endif %}"
+      class="category-form">
   {% csrf_token %}
 
   {% for field in form %}

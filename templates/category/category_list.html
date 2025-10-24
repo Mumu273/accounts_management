@@ -34,12 +34,22 @@
         {% endif %}
     </h1>
 
+    {% if not is_transaction %}
     <div class="add-btn-container">
         <button id="btnAddCategory" class="btn-add"
                 data-url="{% url 'add_new_category' is_expense %}">
             Add New
         </button>
     </div>
+    {% else %}
+    <div class="add-btn-container">
+        <button id="btnAddCategory" class="btn-add"
+                data-url="{% url 'add_new_transaction' is_expense %}">
+            Add New
+        </button>
+    </div>
+    {% endif %}
+
 
     <div class="table-container">
         <table class="table table-striped">
@@ -57,7 +67,7 @@
                 {% for category in categories %}
                 <tr data-id="{{ category.id }}">
                     {% for field in form %}
-                        {% if field.name != 'is_expense' %}
+                        {% if field.name != 'is_expense' and field.name != 'category' and field.name != 'description' %}
                         <td data-label="{{ field.label }}">
                             {{ category|get_field_value:field.name|truncatechars:20 }}
                         </td>
