@@ -3,8 +3,12 @@
 {% load static %}
 
 {% block title %}
-    {% if is_expense %}
+    {% if is_expense and not is_transaction %}
         Expense Categories
+    {% elif is_transaction and is_expense_transaction %}
+        Expenses
+    {% elif is_transaction and not is_expense_transaction %}
+        Earnings
     {% else %}
         Earning Categories
     {% endif %}
@@ -21,6 +25,10 @@
     <h1>
         {% if is_expense == "True" %}
             Expense Categories
+        {% elif is_transaction and is_expense_transaction %}
+            Expenses
+        {% elif is_transaction and not is_expense_transaction %}
+            Earnings
         {% else %}
             Earning Categories
         {% endif %}
