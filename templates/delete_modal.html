@@ -7,7 +7,11 @@
           <h5 class="modal-title w-100 text-center" id="deleteModalLabel">Confirm Delete</h5>
         </div>
         <div class="modal-body text-center">
-          Are you sure you want to delete this category?
+            {% if not is_transaction %}
+            Are you sure you want to delete this category?
+            {% else %}
+            Are you sure you want to delete this {% if is_expense %} expense {% else %} earning {% endif %}?
+            {% endif %}
         </div>
         <div class="modal-footer justify-content-center">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>

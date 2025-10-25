@@ -74,16 +74,29 @@
                         {% endif %}
                     {% endfor %}
                     <td>
-                        <a href="#" class="btn-view btn btn-info btn-sm"
-                           data-url="{% url 'category_view' category.id %}">
-                           View
-                        </a>
-                        <a href="#" class="btn-edit btn btn-warning btn-sm"
-                            data-url="{% url 'category_edit' category.id %}">
-                            Edit
-                        </a>
-                        <a href="#" class="btn-delete btn btn-danger btn-sm"
-                            data-url="{% url 'category_delete' category.id %}">Delete</a>
+                        {% if not is_transaction %}
+                            <a href="#" class="btn-view btn btn-info btn-sm"
+                               data-url="{% url 'category_view' category.id %}">
+                               View
+                            </a>
+                            <a href="#" class="btn-edit btn btn-warning btn-sm"
+                                data-url="{% url 'category_edit' category.id %}">
+                                Edit
+                            </a>
+                            <a href="#" class="btn-delete btn btn-danger btn-sm"
+                                data-url="{% url 'category_delete' category.id %}">Delete</a>
+                        {% else %}
+                            <a href="#" class="btn-view btn btn-info btn-sm"
+                               data-url="{% url 'transaction_view' category.id %}">
+                               View
+                            </a>
+                            <a href="#" class="btn-edit btn btn-warning btn-sm"
+                                data-url="{% url 'transaction_edit' category.id %}">
+                                Edit
+                            </a>
+                            <a href="#" class="btn-delete btn btn-danger btn-sm"
+                                data-url="{% url 'transaction_delete' category.id %}">Delete</a>
+                        {% endif %}
                     </td>
                 </tr>
                 {% empty %}
@@ -95,9 +108,9 @@
         </table>
     </div>
     {% include 'add_modal.html' %}
-    {% include 'view_modal.html'  %}
+    {% include 'view_modal.html' %}
     {% include 'edit_modal.html' %}
-    {% include 'delete_modal.html' %}
+    {% include 'delete_modal.html' with is_expense=is_expense is_transaction=is_transaction %}
 </div>
 
 {% endblock %}

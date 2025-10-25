@@ -4,7 +4,11 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="addCategoryModalLabel">
+            {% if not is_transaction %}
             Add New {% if is_expense|stringformat:"s" == "True" %}Expense{% else %}Earning{% endif %} Category
+            {% else %}
+            Add New {% if is_expense|stringformat:"s" == "True" %}Expense{% else %}Earning{% endif %}
+            {% endif %}
         </h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>

@@ -1,4 +1,10 @@
-<form method="POST" action="{% url 'category_edit' form.instance.id %}" id="editCategoryForm" class="category-form">
+<form method="post"
+      action="{% if is_transaction %}
+                  {% url 'transaction_edit' form.instance.id %}
+               {% else %}
+                  {% url 'add_new_category' form.instance.id %}
+               {% endif %}"
+      class="category-form">
     {% csrf_token %}
     {% for field in form %}
         {% if field.name != 'is_expense' %}

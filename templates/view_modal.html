@@ -10,7 +10,11 @@
           {% for field in form %}
             {% if field.name != 'is_expense' %}
                 <dt class="col-sm-4">{{ field.label }}</dt>
+                {% if field.name != 'category' %}
                 <dd class="col-sm-8">{{ field.value }}</dd>
+                {% else %}
+                <dd class="col-sm-8">{{ transaction.category }}</dd>
+                {% endif %}
             {% endif %}
           {% endfor %}
         </dl>

@@ -28,15 +28,14 @@ def transaction_list(request):
     return render(request, 'category/category_list.html', context=context)
 
 
-# @login_required
-# def category_view(request, category_id):
-#     category = get_object_or_404(Category, id=category_id)
-#     form = CategoryForm(instance=category)
-#     return render(request, 'view_modal.html', {"form":form})
-#
+@login_required
+def transaction_view(request, transaction_id):
+    transaction = get_object_or_404(Transaction, id=transaction_id)
+    form = TransactionForm(instance=transaction)
+    return render(request, 'view_modal.html', {"form":form, "transaction": transaction})
+
 @login_required
 def add_new_transaction(request, is_expense):
-
     if request.method == "POST":
         request_data = request.POST.copy()
         request_data['is_expense'] = is_expense == "True"
@@ -55,30 +54,30 @@ def add_new_transaction(request, is_expense):
                    'categories': categories,
                    }
         return render(request, "add_form.html", context)
-#
-#
-# @login_required
-# def category_edit(request, category_id):
-#     category = Category.objects.filter(id=category_id).first()
-#     if request.method == "POST":
-#         request_data = request.POST.copy()
-#         request_data['is_expense'] = category.is_expense
-#         form = CategoryForm(request_data, instance=category)
-#         if form.is_valid():
-#             form.save()
-#             return JsonResponse({"success": True})
-#         else:
-#             html = render(request, "partials/category_form.html", {"form": form}).content.decode("utf-8")
-#             return JsonResponse({"success": False, "form_html": html})
-#     else:
-#         form = CategoryForm(instance=category)
-#         return render(request, "edit_form.html", {"form": form})
-#
-#
-# @login_required
-# def category_delete(request, category_id):
-#     url = reverse('category_list')
-#     category = Category.objects.filter(id=category_id).first()
-#     is_expense = category.is_expense
-#     category.delete()
-#     return redirect(f"{url}?is_expense={is_expense}")
+
+
+@login_required
+def transaction_edit(request, transaction_id):
+    transaction = Transaction.objects.filter(id=transaction_id).first()
+    if request.method == "POST":
+        request_data = request.POST.copy()
+        request_data['is_expense'] = transaction.category.is_expense
+        form = TransactionForm(request_data, instance=transaction, is_expense=transaction.category.is_expense)
+        if form.is_valid():
+            form.save()
+            return JsonResponse({"success": True})
+        else:
+            html = render(request, "partials/category_form.html", {"form": form}).content.decode("utf-8")
+            return JsonResponse({"success": False, "form_html": html})
+    else:
+        form = TransactionForm(instance=transaction, is_expense=transaction.category.is_expense)
+        return render(request, "edit_form.html", {"form": form, "is_transaction": True})
+
+
+@login_required
+def transaction_delete(request, transaction_id):
+    url = reverse('transaction_list')
+    transaction = Transaction.objects.filter(id=transaction_id).first()
+    is_expense = transaction.category.is_expense
+    transaction.delete()
+    return redirect(f"{url}?is_expense={is_expense}")

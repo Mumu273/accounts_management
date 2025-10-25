@@ -1,10 +1,10 @@
 from django.urls import path
-from .views import transaction_list, add_new_transaction
+from .views import transaction_list, add_new_transaction, transaction_view, transaction_edit, transaction_delete
 
 urlpatterns = [
     path('transaction_list', transaction_list, name='transaction_list'),
-    # path('category_view/<uuid:category_id>/', category_view, name='category_view'),
+    path('transaction_view/<uuid:transaction_id>/', transaction_view, name='transaction_view'),
     path('add_new_transaction/<str:is_expense>/', add_new_transaction, name='add_new_transaction'),
-    # path('category_edit/<uuid:category_id>/', category_edit, name='category_edit'),
-    # path('category_delete/<uuid:category_id>/', category_delete, name='category_delete'),
+    path('transaction_edit/<uuid:transaction_id>/', transaction_edit, name='transaction_edit'),
+    path('transaction_delete/<uuid:transaction_id>/', transaction_delete, name='transaction_delete'),
 ]
