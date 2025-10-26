@@ -1,7 +1,10 @@
+from django.db.models import Sum
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+
+from transaction.models import Transaction
 
 
 def login_view(request):
@@ -32,7 +35,15 @@ def login_view(request):
 @login_required
 def dashboard(request):
     username = request.user.username
-    context = {'username': username}
+    earnings = Transaction.objects.filter(category__is_expense=False).aggregate(total=Sum('amount'))['total'] or 0
+    expense = Transaction.objects.filter(category__is_expense=True).aggregate(total=Sum('amount'))['total'] or 0
+    balance = earnings - expense
+
+    context = {'username': username,
+               'earnings': earnings,
+               'expenses': expense,
+               'balance': balance
+               }
     return render(request, 'dashboard/index.html', context=context)
 
 @login_required
