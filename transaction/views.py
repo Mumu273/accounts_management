@@ -17,6 +17,13 @@ def transaction_list(request):
         transaction = transaction.filter(category__is_expense=True)
     else:
         transaction = transaction.filter(category__is_expense=False)
+    start_date = request.GET.get('start_date')
+    end_date = request.GET.get('end_date')
+    if start_date:
+        transaction = transaction.filter(date__gte=start_date)
+    if end_date:
+        transaction = transaction.filter(date__lte=end_date)
+
     form = TransactionForm()
     context = {
         'is_expense': is_expense,
