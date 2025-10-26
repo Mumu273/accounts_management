@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.utils import timezone
 
 from transaction.models import Transaction
 
@@ -35,8 +36,22 @@ def login_view(request):
 @login_required
 def dashboard(request):
     username = request.user.username
-    earnings = Transaction.objects.filter(category__is_expense=False).aggregate(total=Sum('amount'))['total'] or 0
-    expense = Transaction.objects.filter(category__is_expense=True).aggregate(total=Sum('amount'))['total'] or 0
+    start_date = request.GET.get('start_date')
+    end_date = request.GET.get('end_date')
+    transaction = Transaction.objects.all()
+    today = timezone.now().date()
+
+    # If no filter is applied, default to current month
+    if not start_date and not end_date:
+        first_day_of_month = today.replace(day=1)
+        transaction = transaction.filter(date__gte=first_day_of_month, date__lte=today)
+    else:
+        if start_date:
+            transaction = transaction.filter(date__gte=start_date)
+        if end_date:
+            transaction = transaction.filter(date__lte=end_date)
+    earnings = transaction.filter(category__is_expense=False).aggregate(total=Sum('amount'))['total'] or 0
+    expense = transaction.filter(category__is_expense=True).aggregate(total=Sum('amount'))['total'] or 0
     balance = earnings - expense
 
     context = {'username': username,
