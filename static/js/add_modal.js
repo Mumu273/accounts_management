@@ -3,7 +3,6 @@ document.addEventListener("DOMContentLoaded", function() {
     const modalBody = document.getElementById("addCategoryModalBody");
     const modal = new bootstrap.Modal(document.getElementById("addCategoryModal"));
     const spinner = document.getElementById("loadingSpinner");
-
     addBtn.addEventListener("click", function() {
         const url = this.getAttribute("data-url");
         spinner.style.display = "block";

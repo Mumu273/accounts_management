@@ -6,6 +6,7 @@ from django.urls import reverse
 from category.models import Category
 from .models import Transaction
 from .forms import TransactionForm
+from datetime import date
 
 @login_required
 def transaction_list(request):
@@ -39,6 +40,8 @@ def add_new_transaction(request, is_expense):
     if request.method == "POST":
         request_data = request.POST.copy()
         request_data['is_expense'] = is_expense == "True"
+        if not request.POST['date']:
+            request_data['date'] = date.today()
         form = TransactionForm(request_data)
         if form.is_valid():
             form.save()

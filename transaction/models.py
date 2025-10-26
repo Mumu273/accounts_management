@@ -7,6 +7,7 @@ class Transaction(BaseModel):
     transaction_name = models.CharField(max_length=255, blank=True, null=True)
     description = models.TextField(blank=True, null=True)
     amount = models.FloatField()
+    date = models.DateField(blank=True, null=True)
 
     def __str__(self):
         return f"{self.transaction_name} {self.category.category_name}"
