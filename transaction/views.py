@@ -7,9 +7,27 @@ from category.models import Category
 from .models import Transaction
 from .forms import TransactionForm
 from datetime import date
+from django.utils import timezone
+
 
 @login_required
 def transaction_list(request):
+    today = timezone.now().date()
+    first_day_of_month = today.replace(day=1)
+
+    # Get values from GET parameters (or default)
+    start_date = request.GET.get('start_date')
+    end_date = request.GET.get('end_date')
+
+    if not start_date:
+        start_date = first_day_of_month
+    else:
+        start_date = timezone.datetime.fromisoformat(start_date).date()
+
+    if not end_date:
+        end_date = today
+    else:
+        end_date = timezone.datetime.fromisoformat(end_date).date()
     is_expense = request.GET.get('is_expense')
     transaction = Transaction.objects.all()
     is_expense_transaction = is_expense == "True"
@@ -17,8 +35,6 @@ def transaction_list(request):
         transaction = transaction.filter(category__is_expense=True)
     else:
         transaction = transaction.filter(category__is_expense=False)
-    start_date = request.GET.get('start_date')
-    end_date = request.GET.get('end_date')
     if start_date:
         transaction = transaction.filter(date__gte=start_date)
     if end_date:
@@ -30,7 +46,9 @@ def transaction_list(request):
         'categories': transaction,
         'form': form,
         'is_transaction': True,
-        'is_expense_transaction': is_expense_transaction
+        'is_expense_transaction': is_expense_transaction,
+        'start_date': start_date.isoformat(),
+        'end_date': end_date.isoformat(),
 
     }
     return render(request, 'category/category_list.html', context=context)
@@ -57,11 +75,13 @@ def add_new_transaction(request, is_expense):
             html = render(request, "partials/category_form.html", {"form": form}).content.decode("utf-8")
             return JsonResponse({"success": False, "form_html": html})
     else:
+        today = timezone.now().date()
         form = TransactionForm(initial={"is_expense": is_expense}, is_expense=is_expense)
         categories = Category.objects.filter(is_expense=True)
         context = {"form": form,
                    'is_transaction': True,
                    'categories': categories,
+                   'today': today
                    }
         return render(request, "add_form.html", context)
 

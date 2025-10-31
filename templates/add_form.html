@@ -11,7 +11,7 @@
     {% if field.name != 'is_expense' %}
       <div class="mb-3">
         {% if field.name == 'date' %}
-        <input type="date" name="date" class="form-control">
+        <input type="date" name="date" class="form-control" value="{{ today|date:'Y-m-d' }}">
         {% else %}
         <label class="form-label fw-semibold text-secondary">{{ field.label }}</label>
         <div class="form-field">
