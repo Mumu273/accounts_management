@@ -3,30 +3,35 @@
 {% block title %}Dashboard{% endblock %}
 
 {% block content %}
-<form method="get" class="row g-3 mb-3">
-    <div class="col-md-3">
-        <label for="start_date" class="form-label">Start Date</label>
-        <input
-            type="date"
-            name="start_date"
-            class="form-control"
-            value="{{ start_date }}"
-        >
+<form method="get" class="row align-items-end g-3 mb-3">
+    <div class="col-md-6 d-flex gap-3">
+        <div class="flex-fill">
+            <label for="start_date" class="form-label">Start Date</label>
+            <input
+                type="date"
+                name="start_date"
+                class="form-control"
+                value="{{ start_date }}"
+            >
+        </div>
+        <div class="flex-fill">
+            <label for="end_date" class="form-label">End Date</label>
+            <input
+                type="date"
+                name="end_date"
+                class="form-control"
+                value="{{ end_date }}"
+            >
+        </div>
     </div>
-    <div class="col-md-3">
-        <label for="end_date" class="form-label">End Date</label>
-        <input
-            type="date"
-            name="end_date"
-            class="form-control"
-            value="{{ end_date }}"
-        >
-    </div>
-    <div class="col-md-3 align-self-end">
-        <button type="submit" class="btn btn-primary">Filter</button>
-        <a href="{% url 'home' %}" class="btn btn-secondary">Reset</a>
+
+    <div class="col-md-3 d-flex gap-2">
+        <button type="submit" class="btn btn-primary w-50">Filter</button>
+        <a href="{% url 'home' %}" class="btn btn-secondary w-50">Reset</a>
     </div>
 </form>
+
+
 <div class="card">
   <h3>Total Earnings</h3>
   <h4>💴৳ {{ earnings }}</h4>
