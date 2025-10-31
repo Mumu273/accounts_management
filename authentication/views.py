@@ -36,30 +36,42 @@ def login_view(request):
 @login_required
 def dashboard(request):
     username = request.user.username
+    today = timezone.now().date()
+    first_day_of_month = today.replace(day=1)
+
+    # Get values from GET parameters (or default)
     start_date = request.GET.get('start_date')
     end_date = request.GET.get('end_date')
-    transaction = Transaction.objects.all()
-    today = timezone.now().date()
 
-    # If no filter is applied, default to current month
-    if not start_date and not end_date:
-        first_day_of_month = today.replace(day=1)
-        transaction = transaction.filter(date__gte=first_day_of_month, date__lte=today)
+    if not start_date:
+        start_date = first_day_of_month
     else:
-        if start_date:
-            transaction = transaction.filter(date__gte=start_date)
-        if end_date:
-            transaction = transaction.filter(date__lte=end_date)
+        start_date = timezone.datetime.fromisoformat(start_date).date()
+
+    if not end_date:
+        end_date = today
+    else:
+        end_date = timezone.datetime.fromisoformat(end_date).date()
+
+    # Filter data
+    transaction = Transaction.objects.filter(date__gte=start_date, date__lte=end_date)
+
+    # Aggregations
     earnings = transaction.filter(category__is_expense=False).aggregate(total=Sum('amount'))['total'] or 0
     expense = transaction.filter(category__is_expense=True).aggregate(total=Sum('amount'))['total'] or 0
     balance = earnings - expense
 
-    context = {'username': username,
-               'earnings': earnings,
-               'expenses': expense,
-               'balance': balance
-               }
-    return render(request, 'dashboard/index.html', context=context)
+    # Send formatted strings for the input fields
+    context = {
+        'username': username,
+        'earnings': earnings,
+        'expenses': expense,
+        'balance': balance,
+        'start_date': start_date.isoformat(),
+        'end_date': end_date.isoformat(),
+    }
+
+    return render(request, 'dashboard/index.html', context)
 
 @login_required
 def logout_view(request):
